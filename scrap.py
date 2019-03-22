@@ -14,6 +14,7 @@ tables = soup.find_all('table', attrs={'class': 'wikitable'})
 
 print('Cities with population greater than 5 Lakhs according to data from year 2011')
 
+data = {}
 for table in tables:
     tbody = table.find('tbody')
     trs = tbody.find_all('tr')
@@ -26,5 +27,14 @@ for table in tables:
             if population < 500000:
                 break
 
+            data[tds[1].text] = population
             print('{}: {}'.format(tds[1].text, population))
             print()
+
+while True:
+    city = input('City name: ')
+
+    try:
+        print('The population of {} is {}'.format(city, data[city]))
+    except:
+        print('The city name not available in scrapped data')
